@@ -24,3 +24,30 @@ class TestMyModule(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+# Auto-generated tests
+```python
+import pytest
+from my_module import add, multiply
+
+@pytest.mark.parametrize("a, b, expected", [
+    (0, 0, 0),
+    (1, 1, 2),
+    (-1, 1, 0),
+    (2.5, 3.5, 6),
+    (-2, -3, -5),
+])
+def test_add(a, b, expected):
+    assert add(a, b) == expected
+
+@pytest.mark.parametrize("a, b, expected", [
+    (0, 0, 0),
+    (1, 1, 1),
+    (1.5, 2, 3),
+    (-1, -1, 1),
+    (2.5, 3.5, 8.75),
+])
+def test_multiply(a, b, expected):
+    assert multiply(a, b) == expected
+```
