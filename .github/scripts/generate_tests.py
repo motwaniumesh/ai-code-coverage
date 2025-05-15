@@ -50,6 +50,13 @@ def main():
             f.write(new_tests)
         
         print("New tests have been generated and added to test_calculator.py")
+                # Create a new branch and commit changes
+        os.system('git config --global user.email "umesh.motwani@slalom.com"')
+        os.system('git config --global user.name "AI Test Generator"')
+        os.system('git checkout -b feature/add-tests')
+        os.system('git add tests/test_calculator.py')
+        os.system('git commit -m "Add generated tests to improve coverage"')
+        os.system('git push origin feature/add-tests')
         
     else:
         print(f"Current coverage: {coverage}%. No additional tests needed.")

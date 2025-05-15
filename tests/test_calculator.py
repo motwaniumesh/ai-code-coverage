@@ -17,10 +17,10 @@ class TestMyModule(unittest.TestCase):
         self.assertEqual(add(-1, 1), 0)
         self.assertEqual(add(0, 0), 0)
 
-    # def test_multiply(self):
-    #     self.assertEqual(multiply(5, 2), 10)
-    #     self.assertEqual(multiply(1, 1), 1)
-    #     self.assertEqual(multiply(0, 0), 0)
+    def test_multiply(self):
+        self.assertEqual(multiply(5, 2), 10)
+        self.assertEqual(multiply(1, 1), 1)
+        self.assertEqual(multiply(0, 0), 0)
 
 if __name__ == '__main__':
     unittest.main()
