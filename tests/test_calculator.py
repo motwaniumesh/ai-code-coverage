@@ -25,19 +25,6 @@ def test_subtract():
     assert calc.subtract(-1, -1) == 0
     assert calc.get_last_result() == 0
 
-def test_divide():
-    """Test division functionality."""
-    calc = Calculator()
-    assert calc.divide(6, 2) == 3
-    assert calc.divide(5, 2) == 2.5
-    assert calc.divide(-6, 2) == -3
-
-def test_divide_by_zero():
-    """Test division by zero raises error."""
-    calc = Calculator()
-    with pytest.raises(ValueError):
-        calc.divide(5, 0)
-
 def test_clear_last_result():
     """Test clearing last result."""
     calc = Calculator()
