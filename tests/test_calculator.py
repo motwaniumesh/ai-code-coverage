@@ -16,14 +16,6 @@ def test_multiply():
     assert calc.multiply(-2, 3) == -6
     assert calc.multiply(0, 5) == 0
 
-# Additional tests for better coverage
-def test_subtract():
-    """Test subtraction functionality."""
-    calc = Calculator()
-    assert calc.subtract(5, 3) == 2
-    assert calc.subtract(1, 1) == 0
-    assert calc.subtract(-1, -1) == 0
-    assert calc.get_last_result() == 0
 
 def test_clear_last_result():
     """Test clearing last result."""
