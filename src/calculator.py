@@ -20,19 +20,7 @@ class Calculator:
         return self.last_result
     
     def divide(self, a: float, b: float) -> float:
-        """
-        Divide a by b and store the result.
-        
-        Args:
-            a (float): numerator
-            b (float): denominator
-            
-        Returns:
-            float: result of division
-            
-        Raises:
-            ValueError: if attempting to divide by zero
-        """
+        """Divide a by b and store the result."""
         if b == 0:
             raise ValueError("Division by zero is not allowed")
         self.last_result = a / b

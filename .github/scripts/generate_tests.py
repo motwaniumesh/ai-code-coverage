@@ -13,22 +13,29 @@ def generate_tests(source_code):
     client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
     prompt = f"""
-    Given the following Python code, generate comprehensive unit tests:
+    Given the following Python code, generate comprehensive pytest unit tests.
+    Return ONLY the test code, no explanations or comments about what you're going to do.
+    Each test function should start with 'def test_' and use proper pytest assertions.
     
     {source_code}
-    
-    Generate pytest-style unit tests that achieve high coverage.
     """
     
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a Python testing expert."},
+            {"role": "system", "content": "You are a Python testing expert. Provide only valid Python test code."},
             {"role": "user", "content": prompt}
         ]
     )
     
-    return response.choices[0].message.content
+    # Clean up the response to ensure it's valid Python code
+    generated_tests = response.choices[0].message.content.strip()
+    
+    # Remove any markdown formatting if present
+    if generated_tests.startswith("```python"):
+        generated_tests = generated_tests.replace("```python", "").replace("```", "")
+    
+    return generated_tests.strip()
 
 def push_changes():
     pat_token = os.getenv('PAT_TOKEN')
@@ -62,6 +69,13 @@ def main():
         
         # Generate new tests
         new_tests = generate_tests(source_code)
+        
+        # Validate the generated tests
+        try:
+            compile(new_tests, '<string>', 'exec')
+        except SyntaxError as e:
+            print(f"Generated tests contain syntax errors: {e}")
+            return
         
         # Append new tests to existing test file
         test_file = Path('tests/test_calculator.py')
