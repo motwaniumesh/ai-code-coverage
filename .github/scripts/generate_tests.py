@@ -30,6 +30,26 @@ def generate_tests(source_code):
     
     return response.choices[0].message.content
 
+def push_changes():
+    pat_token = os.getenv('PAT_TOKEN')
+    repo_url = os.getenv('GITHUB_REPOSITORY')
+    
+    # Set up git with PAT
+    os.system('git config --global user.email "ai-agent@example.com"')
+    os.system('git config --global user.name "AI Test Generator"')
+    
+    # Create new branch
+    branch_name = f"feature/add-tests-{os.getenv('GITHUB_SHA', '')[:7]}"
+    os.system(f'git checkout -b {branch_name}')
+    
+    # Add and commit changes
+    os.system('git add tests/test_calculator.py')
+    os.system('git commit -m "Add generated tests to improve coverage"')
+    
+    # Push using PAT
+    push_url = f"https://x-access-token:{pat_token}@github.com/{repo_url}.git"
+    os.system(f'git push {push_url} {branch_name}')
+
 def main():
     coverage = get_coverage_percentage()
     
@@ -50,13 +70,9 @@ def main():
             f.write(new_tests)
         
         print("New tests have been generated and added to test_calculator.py")
-                # Create a new branch and commit changes
-        os.system('git config --global user.email "umesh.motwani@slalom.com"')
-        os.system('git config --global user.name "AI Test Generator"')
-        os.system('git checkout -b feature/add-tests')
-        os.system('git add tests/test_calculator.py')
-        os.system('git commit -m "Add generated tests to improve coverage"')
-        os.system('git push origin feature/add-tests')
+        
+        # Push changes
+        push_changes()
         
     else:
         print(f"Current coverage: {coverage}%. No additional tests needed.")
