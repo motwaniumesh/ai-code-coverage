@@ -23,7 +23,7 @@ def generate_tests(source_code):
     response = openai.ChatCompletion.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "You are a Python testing expert."},
+            {"role": "system", "content": "You are a Python testing expert who can write test cases."},
             {"role": "user", "content": prompt}
         ]
     )
