@@ -4,7 +4,7 @@ from github import Github
 
 def get_ai_review(diff):
     client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-    
+
     prompt = f"""Act as a senior code reviewer. Analyze this code diff and provide:
     1. Potential issues
     2. Security concerns
@@ -38,6 +38,6 @@ if __name__ == "__main__":
         with open('diff.patch', 'r') as f:
             diff = f.read()
     
-    openai.api_key = os.environ['OPENAI_API_KEY']
+ 
     review = get_ai_review(diff)
     post_comment(review)
