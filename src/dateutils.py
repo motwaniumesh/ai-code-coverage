@@ -5,28 +5,6 @@ class DateUtils:
     """Utility class for date-related calculations"""
     
     @staticmethod
-    def calculate_age(birth_date: date) -> int:
-        """
-        Calculate age based on birth date.
-        
-        Args:
-            birth_date: Date of birth
-            
-        Returns:
-            Age in years
-            
-        Raises:
-            TypeError: If input is not a date object
-        """
-        if not isinstance(birth_date, date):
-            raise TypeError("birth_date must be a date object")
-            
-        today = date.today()
-        return today.year - birth_date.year - (
-            (today.month, today.day) < (birth_date.month, birth_date.day)
-        )
-
-    @staticmethod
     def add_days_to_date(start_date: date, days: int) -> date:
         """
         Add days to a given date.
