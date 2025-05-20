@@ -30,7 +30,11 @@ def post_comment(comment):
     g = Github(os.environ['GITHUB_TOKEN'])
     repo = g.get_repo(os.environ['GITHUB_REPOSITORY'])
     pr = repo.get_pull(int(os.environ['PR_NUMBER']))
-    pr.create_issue_comment(f"## 🤖 AI Code Review\n\n{comment}")
+    try:
+        pr.create_issue_comment(f"## 🤖 AI Code Review\n\n{comment}")
+    except Exception as e:
+        print(f"Failed to post comment: {str(e)}")
+        raise
 
 if __name__ == "__main__":
     diff = os.getenv('DIFF', '')
