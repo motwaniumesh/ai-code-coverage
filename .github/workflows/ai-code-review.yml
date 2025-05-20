@@ -26,9 +26,11 @@ jobs:
     - name: Generate diff
       id: get-diff
       run: |
-        git fetch origin ${{ github.base_ref }}
-        git diff origin/${{ github.base_ref }} --unified > diff.txt
-        echo "DIFF=$(cat diff.txt)" >> $GITHUB_ENV
+        git fetch origin main
+        git diff origin/main -- > diff.patch
+        echo "DIFF<<EOF" >> $GITHUB_ENV
+        cat diff.patch | perl -pe 's/\x1b.*?[mGKH]//g' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/`/\\`/g' >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Run AI Code Review
       env:

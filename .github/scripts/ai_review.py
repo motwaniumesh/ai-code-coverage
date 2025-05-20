@@ -33,8 +33,8 @@ def post_comment(comment):
 if __name__ == "__main__":
     diff = os.getenv('DIFF', '')
     if not diff:
-        print("No diff found")
-        exit()
+        with open('diff.patch', 'r') as f:
+            diff = f.read()
     
     openai.api_key = os.environ['OPENAI_API_KEY']
     review = get_ai_review(diff)
