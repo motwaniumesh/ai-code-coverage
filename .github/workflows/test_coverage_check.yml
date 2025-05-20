@@ -9,6 +9,7 @@ on:
 jobs:
   coverage-check:
     runs-on: ubuntu-latest
+    if: "!contains(github.ref, 'feature/add-tests')"
     
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +28,7 @@ jobs:
         
     - name: Run tests and check coverage
       run: |
-        pytest --cov=src tests/ --cov-report=xml
+        pytest --cov=src tests/ --cov-report=xml --cov-report=term-missing
         
     - name: Generate tests if coverage is low
       env:
@@ -35,4 +36,4 @@ jobs:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
       run: |
-        python .github/scripts/generate_tests.py
+        python .github/scripts/test_generator.py
