@@ -1,0 +1,41 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Needed to get proper git history
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install openai requests python-dotenv
+
+    - name: Generate diff
+      id: get-diff
+      run: |
+        git fetch origin main
+        git diff origin/main -- > diff.patch
+        echo "DIFF<<EOF" >> $GITHUB_ENV
+        cat diff.patch | perl -pe 's/\x1b.*?[mGKH]//g' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/`/\\`/g' >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Run AI Code Review
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: |
+        python .github/scripts/ai_review.py
