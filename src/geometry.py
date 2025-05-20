@@ -32,5 +32,7 @@ class Geometry:
     
     @staticmethod
     def is_right_angled_triangle(side1: float, side2: float, side3: float) -> bool:
+        if side1 < 0 or side2 < 0 or side3 < 0:
+            raise ValueError("All sides must be positive")
         sides = sorted([side1, side2, side3])
         return abs(sides[0]**2 + sides[1]**2 - sides[2]**2) < 1e-9
