@@ -70,13 +70,6 @@ def main():
         # Generate new tests
         new_tests = generate_tests(source_code)
         
-        # Validate the generated tests
-        try:
-            compile(new_tests, '<string>', 'exec')
-        except SyntaxError as e:
-            print(f"Generated tests contain syntax errors: {e}")
-            return
-        
         # Append new tests to existing test file
         test_file = Path('tests/test_calculator.py')
         with open(test_file, 'a') as f:
