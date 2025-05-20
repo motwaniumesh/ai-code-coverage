@@ -29,9 +29,8 @@ def generate_tests(source_code, filename):
     prompt = f"""
     Given the following Python code from {filename}, generate comprehensive pytest unit tests.
     Requirements:
-    - Return ONLY the test code
-    - Use pytest conventions
-    - Test class should match filename (test_<original>.py)
+    - Return ONLY the test code, no explanations or comments about what you're going to do.
+    - Each test function should start with 'def test_' and use proper pytest assertions
     - Cover edge cases and error handling
     
     Code:
@@ -50,9 +49,9 @@ def generate_tests(source_code, filename):
     
     # Clean markdown and ensure proper test file structure
     if generated_tests.startswith("```python"):
-        generated_tests = generated_tests[9:-3].strip()
+        generated_tests = generated_tests.replace("```python", "").replace("```", "")
     
-    return generated_tests
+    return generated_tests.strip()
 
 def push_changes(test_files):
     pat_token = os.getenv('PAT_TOKEN')
@@ -62,7 +61,7 @@ def push_changes(test_files):
     os.system('git config --global user.email "ai-agent@example.com"')
     os.system('git config --global user.name "AI Test Generator"')
     
-    branch_name = f"tests/auto-tests-{timestamp}"
+    branch_name = f"feature/add-auto-tests-{timestamp}"
     os.system(f'git checkout -b {branch_name}')
     
     # Add all modified test files
