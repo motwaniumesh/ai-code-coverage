@@ -32,3 +32,39 @@ def test_last_result_tracking():
     assert calc.get_last_result() == 4
     calc.multiply(3, 3)
     assert calc.get_last_result() == 9
+
+# Auto-generated tests (2025-05-20T15:37:28.761125)
+def test_initial_last_result():
+    calc = Calculator()
+    assert calc.get_last_result() == 0
+
+def test_addition():
+    calc = Calculator()
+    assert calc.add(2, 3) == 5
+    assert calc.get_last_result() == 5
+
+def test_subtraction():
+    calc = Calculator()
+    assert calc.subtract(5, 3) == 2
+    assert calc.get_last_result() == 2
+
+def test_multiplication():
+    calc = Calculator()
+    assert calc.multiply(2, 3) == 6
+    assert calc.get_last_result() == 6
+
+def test_division():
+    calc = Calculator()
+    assert calc.divide(10, 2) == 5
+    assert calc.get_last_result() == 5
+
+def test_division_by_zero():
+    calc = Calculator()
+    with pytest.raises(ValueError):
+        calc.divide(5, 0)
+
+def test_clear_last_result():
+    calc = Calculator()
+    calc.add(2, 3)
+    calc.clear_last_result()
+    assert calc.get_last_result() == 0
