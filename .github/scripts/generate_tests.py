@@ -32,7 +32,6 @@ def generate_tests(source_code, filename):
     - Return ONLY the test code
     - Use pytest conventions
     - Test class should match filename (test_<original>.py)
-    - Include proper imports
     - Cover edge cases and error handling
     
     Code:
