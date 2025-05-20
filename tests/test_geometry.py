@@ -8,3 +8,42 @@ def test_positive_radius():
 def test_zero_radius():
         """Test edge case of zero radius"""
         assert Geometry.circle_area(0) == 0
+
+# Auto-generated tests (2025-05-20T18:48:02.412128)
+def test_circle_area():
+    assert Geometry.circle_area(0) == 0
+    assert Geometry.circle_area(1) == 3.14159
+    assert Geometry.circle_area(5) == 78.53975
+    with pytest.raises(ValueError):
+        Geometry.circle_area(-1)
+
+def test_circle_perimeter():
+    assert Geometry.circle_perimeter(0) == 0
+    assert Geometry.circle_perimeter(1) == 6.28318
+    assert Geometry.circle_perimeter(5) == 31.4159
+    with pytest.raises(ValueError):
+        Geometry.circle_perimeter(-1)
+
+def test_rectangle_area():
+    assert Geometry.rectangle_area(0, 0) == 0
+    assert Geometry.rectangle_area(2, 3) == 6
+    assert Geometry.rectangle_area(4.5, 2.5) == 11.25
+    with pytest.raises(ValueError):
+        Geometry.rectangle_area(-1, 3)
+    with pytest.raises(ValueError):
+        Geometry.rectangle_area(2, -3)
+
+def test_triangle_area_using_heron():
+    assert Geometry.triangle_area_using_heron(3, 4, 5) == 6
+    assert Geometry.triangle_area_using_heron(5, 12, 13) == 30
+    with pytest.raises(ValueError):
+        Geometry.triangle_area_using_heron(-1, 2, 3)
+    with pytest.raises(ValueError):
+        Geometry.triangle_area_using_heron(1, 1, 3)
+
+def test_is_right_angled_triangle():
+    assert Geometry.is_right_angled_triangle(3, 4, 5)
+    assert Geometry.is_right_angled_triangle(5, 12, 13)
+    assert not Geometry.is_right_angled_triangle(1, 1, 3)
+    with pytest.raises(ValueError):
+        Geometry.is_right_angled_triangle(-1, 2, 3)
