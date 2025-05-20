@@ -1,8 +1,10 @@
 import os
-import openai
+from openai import OpenAI
 from github import Github
 
 def get_ai_review(diff):
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+    
     prompt = f"""Act as a senior code reviewer. Analyze this code diff and provide:
     1. Potential issues
     2. Security concerns
@@ -16,7 +18,7 @@ def get_ai_review(diff):
     {diff[:7500]}  # Truncate to avoid token limits
     """
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
