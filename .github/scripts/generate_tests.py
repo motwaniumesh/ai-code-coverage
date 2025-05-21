@@ -33,7 +33,8 @@ def generate_tests(source_code, filename):
     - Each test function should start with 'def test_' and use proper pytest assertions
     - Cover edge cases and error handling
     - Cover edge cases and error handling
-    - Add imports ONLY if they are missing in an existing test file and add the required imports at the top ONLY
+    - Add imports ONLY if they are missing in an existing test file
+    - Do not include imports if they are already present in the test file
     
     Code:
     {source_code}
