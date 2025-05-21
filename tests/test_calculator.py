@@ -32,3 +32,39 @@ def test_last_result_tracking():
     assert calc.get_last_result() == 4
     calc.multiply(3, 3)
     assert calc.get_last_result() == 9
+
+# Auto-generated tests (2025-05-21T14:40:48.556660)
+def test_initial_last_result():
+    calc = Calculator()
+    assert calc.get_last_result() == 0
+
+def test_addition():
+    calc = Calculator()
+    result = calc.add(3, 7)
+    assert result == 10
+    assert calc.get_last_result() == 10
+
+def test_subtraction():
+    calc = Calculator()
+    result = calc.subtract(10, 5)
+    assert result == 5
+    assert calc.get_last_result() == 5
+
+def test_multiplication():
+    calc = Calculator()
+    result = calc.multiply(4, 6)
+    assert result == 24
+    assert calc.get_last_result() == 24
+
+def test_division():
+    calc = Calculator()
+    result = calc.divide(10, 2)
+    assert result == 5
+    assert calc.get_last_result() == 5
+
+def test_division_by_zero():
+    calc = Calculator()
+    try:
+        calc.divide(10, 0)
+    except ValueError as e:
+        assert str(e) == "Division by zero is not allowed"
