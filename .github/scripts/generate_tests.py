@@ -27,15 +27,13 @@ def generate_tests(source_code, filename):
     client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
     prompt = f"""
-        Given the following Python code from {filename}, generate comprehensive pytest unit tests.
-        Requirements:
-        - First, analyze the code and include all necessary imports including pytest and any dependencies from the original file
-        - If creating a new test file, include standard pytest imports and import the module/classes being tested
-        - If imports are missing in an existing test file, add the required imports at the top
-        - Return ONLY the test code with imports, no explanations or comments about what you're going to do
-        - Each test function should start with 'def test_' and use proper pytest assertions
-        - Cover edge cases and error handling
-        - Ensure all imports follow PEP 8 style guidelines (standard library imports first, then third-party, then local)
+    Given the following Python code from {filename}, generate comprehensive pytest unit tests.
+    Requirements:
+    - Return ONLY the test code, no explanations or comments about what you're going to do.
+    - Each test function should start with 'def test_' and use proper pytest assertions
+    - Cover edge cases and error handling
+    - Cover edge cases and error handling
+    - Add imports ONLY if they are missing in an existing test file and add the required imports at the top ONLY
     
     Code:
     {source_code}
