@@ -36,3 +36,7 @@ class Geometry:
             raise ValueError("All sides must be positive")
         sides = sorted([side1, side2, side3])
         return abs(sides[0]**2 + sides[1]**2 - sides[2]**2) < 1e-9
+    
+    @staticmethod
+    def circle_diameter(radius: float) -> float:
+        return 2 * radius
