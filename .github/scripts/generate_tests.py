@@ -32,9 +32,6 @@ def generate_tests(source_code, filename):
     - Return ONLY the test code, no explanations or comments about what you're going to do.
     - Each test function should start with 'def test_' and use proper pytest assertions
     - Cover edge cases and error handling
-    - Cover edge cases and error handling
-    - Add imports ONLY if they are missing in an existing test file
-    - Do not include imports if they are already present in the test file
     
     Code:
     {source_code}
